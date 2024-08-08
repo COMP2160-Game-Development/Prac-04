@@ -5,11 +5,13 @@
 * Collision
 * Raycasting
 
-## Discussion: Agile Task Allocation
-You are working as a producer on a game project with a small team of developers, designer and artists. Your team uses the Agile process to assign tasks on fortnightly sprints. One of your team members is consistently failing to complete their tasks. They commit their work very close to the sprint deadline and often it is incomplete or untested, breaking the milestone build. 
-* What are some issues that could be causing this problem?
-* As producer, how could you help remedy this problem?
+## Discussion: Inclusive Workspaces (15 min)
+You are working for a game development start-up wo have come under criticism online for the lack of perceived diversity within your ranks. All of your colleagues are Caucasian, able-bodied men with at least five years experience, having worked together at another company before breaking off. Currently, team building exercises consist of axe-throwing on Friday nights at the local pub. Your company has numerous job listings online, which all require a minimum of 5 years industry work, as well as a degree in Computing. In small groups, discuss:
 
+* What are some elements of your studio that may be pushing away more diverse applicants?
+* What can you do to find more diverse applicants?
+* Can you think of any real-world examples in the games industry of studios that have a more diverse team? How do you think they achieved this?
+* 
 ## Today's Task
 In this prac you will implement a tower defense game: 
 
@@ -148,11 +150,6 @@ Is it working? If not, is there anything you have forgotten to do? Look back at 
 
 ### Checkpoint! Save, commit and push your work now.
 
-## To receive half marks for today, show your tutor:
-* Your ERD thus far, with all relationships accurately represented.
-* Your method for spawning creeps and assigning the Path, and justification for your chosen method.
-* Your Tower prefab, and how you're dealing damage to the creep.
-
 ## Step 3 – Create a Tower spawner
 We want to be able to spawn towers wherever the player left-clicks the mouse. There's a few things we need to do to get this working.
 
@@ -188,6 +185,7 @@ You may wish to add a circle sprite to your tower to indicate the area of effect
 ### Prac Complete! Save, commit and push your work now.
 
 ## To receive full marks for today, show your tutor:
+* Your Tower prefab, and how you're dealing damage to the creep.
 * Your completed ERD, with all relationships accurately represented.
 * Your method for spawning Creeps and assigning the Path, and justification for your chosen method.
 * Your Tower prefab, and how you're dealing damage to the Creep.
