@@ -5,24 +5,11 @@ using UnityEngine;
 public class CreepMove : MonoBehaviour
 {
     [SerializeField] private float speed = 2; // metres per second
+    [SerializeField] private Path path;
     private int nextWaypoint = 1;
-
-    private Path path;
-    public Path Path
-    {
-        get
-        {
-            return Path;
-        }
-        set
-        {
-            path = value;
-        }
-    }
 
     void Start()
     {
-        Path = FindObjectOfType<Path>();
         transform.position = path.Waypoint(0); // start at waypoint 0
         Vector3 waypoint = path.Waypoint(1);
         Vector3 direction = waypoint - transform.position;
