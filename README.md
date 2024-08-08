@@ -6,8 +6,8 @@
 * Raycasting
 
 > ## Discussion: Inclusive Workspaces (15 min)
-> You are working for a game development start-up wo have come under criticism online for the lack of perceived diversity within your ranks. All of your colleagues are Caucasian, able-bodied men with at least five years experience, having worked together at another company before breaking off. Currently, team building exercises consist of axe-throwing on Friday nights at the local pub. Your company has numerous job listings online, which all require a minimum of 5 years industry work, as well as a degree in Computing. In small groups, discuss:
-> * What are some elements of your studio that may be pushing away more diverse applicants?
+> You are working for a game development start-up who have come under criticism online for the lack of perceived diversity within your ranks. All of your colleagues are Caucasian, able-bodied men with at least five years experience, having worked together at another company before breaking off. Currently, team building exercises consist of axe-throwing on Friday nights at the local pub. Your company has numerous job listings online, which all require a minimum of 5 years industry work, as well as a degree in Computing. In small groups, discuss:
+> * What are some elements of your studio that may be pushing away more diverse applicants? Is there anything the company should be looking into?
 > * What can you do to find more diverse applicants?
 > * Can you think of any real-world examples in the games industry of studios that have a more diverse team? How do you think they achieved this?
 
