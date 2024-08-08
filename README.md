@@ -5,13 +5,12 @@
 * Collision
 * Raycasting
 
-## Discussion: Inclusive Workspaces (15 min)
-You are working for a game development start-up wo have come under criticism online for the lack of perceived diversity within your ranks. All of your colleagues are Caucasian, able-bodied men with at least five years experience, having worked together at another company before breaking off. Currently, team building exercises consist of axe-throwing on Friday nights at the local pub. Your company has numerous job listings online, which all require a minimum of 5 years industry work, as well as a degree in Computing. In small groups, discuss:
+> ## Discussion: Inclusive Workspaces (15 min)
+> You are working for a game development start-up wo have come under criticism online for the lack of perceived diversity within your ranks. All of your colleagues are Caucasian, able-bodied men with at least five years experience, having worked together at another company before breaking off. Currently, team building exercises consist of axe-throwing on Friday nights at the local pub. Your company has numerous job listings online, which all require a minimum of 5 years industry work, as well as a degree in Computing. In small groups, discuss:
+> * What are some elements of your studio that may be pushing away more diverse applicants?
+> * What can you do to find more diverse applicants?
+> * Can you think of any real-world examples in the games industry of studios that have a more diverse team? How do you think they achieved this?
 
-* What are some elements of your studio that may be pushing away more diverse applicants?
-* What can you do to find more diverse applicants?
-* Can you think of any real-world examples in the games industry of studios that have a more diverse team? How do you think they achieved this?
-* 
 ## Today's Task
 In this prac you will implement a tower defense game: 
 
@@ -21,29 +20,29 @@ You can play it here: https://uncanny-machines.itch.io/comp2160-week-04-prac
 
 The player places towers (blue cylinders) near the path to kill the yellow creeps.
 
-The base framework already implements the path and creep prefab for you. In the Documentation folder (top level of the Repo) there is a powerpoint file which contains an Entity Relationship diagram (ERD) for the code as it stands.
+The base framework already implements the path and creep prefab for you. In the Documentation folder (top level of the Repo) there is a powerpoint file which contains an Entity Relationship diagram (ERD) for the code as it stands. Note that if you have done COMP1350, we handle ERDs a little differently.
 
-Notice that the creep prefab is made up of two components: CreepMove and CreepHealth. This functionality has been split up, since there is little interaction between the movement code for the creep and the health code (i.e. they are loosely coupled). By splitting it into two components, we make each one simpler to read, and easier to understand. Follow this development philosophy throughout this prac, and in your assignment.
+Notice that the creep prefab is made up of two components: `CreepMove` and `CreepHealth`. This functionality has been split up, since there is little interaction between the movement code for the creep and the health code (i.e. they are loosely coupled). By splitting it into two components, we make each one simpler to read, and easier to understand. Follow this development philosophy throughout this prac, and in your assignment.
 
-## Step 1 – Add a creep spawner
-* Take a look at the CreepMove class. Notice how it uses the path object to determine which waypoint the creep is currently moving towards. Here is a snippet from the Update class that demonstrates some of this:
+## Step 1 – Add a creep spawner (20 min)
+Take a look at the CreepMove class. Notice how it uses the path object to determine which waypoint the creep is currently moving towards. Here is a snippet from the Update method:
 
 ```
-    Vector3 waypoint = path.Waypoint(nextWaypoint);
-    float distanceTravelled = speed * Time.deltaTime;
-    float distanceToWaypoint = Vector3.Distance(waypoint, transform.position);
+Vector3 waypoint = path.Waypoint(nextWaypoint);
+float distanceTravelled = speed * Time.deltaTime;
+float distanceToWaypoint = Vector3.Distance(waypoint, transform.position);
 
-    if (distanceToWaypoint <= distanceTravelled)
-    {
-    transform.position = waypoint; // reached the waypoint, start heading to the next one
-    NextWaypoint();
+if (distanceToWaypoint <= distanceTravelled)
+{
+        transform.position = waypoint; // reached the waypoint, start heading to the next one
+        NextWaypoint();
 }
 ```
 
-* Edit the ERD to add a CreepSpawner class. We want this class to spawn new instances of the creep prefab on the path, with a designer-specified time in between creeps. Add a node to the ERD to represent this.
+* Edit the ERD to add a `CreepSpawner` class. We want this class to spawn new instances of the creep prefab on the path, with a designer-specified time in between creeps. Add a node to the ERD to represent this.
 * Implement the CreepSpawner, following the same pattern in Week 3 for creating the ObstacleSpawner.
 
-The spawned creeps need to have a way to find the path they are going to be navigating. The current method of dropping the path into the creep's Path field in the inspector won't work, as this is scene-specific, and we are instantiating new creeps as we go. The lecture introduced us to three different methods to handle this. I'll lay out some code snippets for each, and it's up to you to decide which one to implement and why.
+The spawned creeps need to have a way to find the path they are going to be navigating. The current method of dropping the path into the creep's Path field in the inspector won't work, as this is scene-specific, and we are instantiating new creeps as we go. The lecture videos introduced us to three different methods to handle this. I'll lay out some code snippets for each, and it's up to you to decide which one to implement and why.
 
 ### Set the path on the Spawner
 Instead of setting the path on the creep, we can instead set this on the Spawner itself and pass it on when a new creep is created. Add the following code to your CreepSpawner class to allow allocation in the inspector:
@@ -90,24 +89,27 @@ A final approach is the same as the last, but looks for an object with the corre
 Path = FindObjectOfType<Path>();
 ```
 
-### Pick an approach!
-Each of these approaches has pros and cons. Consider which one is best, thinking about scaleability, how error prone it is, and how it might help or hinder a level designer on your team. Your tutor will be asking you why you chose this method when marking. Before moving on, make sure you've documented your approach in your ERD.
+## Step 2 - Discuss and Pick an Approach (10 min)
+Chat with the person next to you about why you think your option is the best one. Are they doing the same thing? Why/why not? Consider which one is best, thinking about scaleability, how error prone it is, and how it might help or hinder a level designer on your team. Your demonstrator will be asking you why you chose this method when marking. Before moving on, make sure you've documented your approach in your ERD.
 
 ### Checkpoint! Save, commit and push your work now.
 
-## Step 2 – Create a tower prefab
-We want to now create a tower object that "attacks" the creeps as they move along the path, like so:
+## Step 3 – Create a tower prefab (30 min)
+We want to create a tower object that "attacks" the creeps as they move along the path, like so:
 
 ![A diagram of a the tower's area of effect.](images/Week4_AreaOfEffect.png)
 
 Firstly, create your tower object, using a Cylinder for the mesh. You may wish to make the Tower's mesh itself a child of an Empty Game Object, so you can achieve a similar positioning to last week where the base of each object was the origin point.
-* Add an appropriate Trigger Collider to the Tower that will act as its area of effect. It should look something like this:
+
+Add an appropriate Trigger Collider to the Tower that will act as its area of effect. It should look something like this:
 
 ![An image of a tower object, with a sphere collider used to create the area of effect trigger.](images/Week4_Tower.png)
 
 While inside the tower’s area of effect, the creep should lose health at a rate per second given by the tower’s strength. We want to make this a tuneable parameter of the tower so we can have towers of different strengths. Create a script for your Tower and add this paramater in.
 
 We want to use one of the OnTrigger event handlers for this, similar to what we did in Week 3. Have a look at the documentation for [OnTriggerEnter](https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnTriggerEnter.html), [OnTriggerStay](https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnTriggerStay.html) and [OnTriggerExit](https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnTriggerExit.html). Determine which one to use.
+
+**Note: Last week, we used the 2D physics engine. This week we are using 3D. Note the subtle differences in event handler names, and that the two systems do not interact!**
 
 Next, we need to consider which class this event handler should go on. Both objects have Trigger Colliders, so both will receive this event. For our purposes, we're going to place the event on the Tower itself.
 
@@ -146,11 +148,11 @@ void OnTriggerStay(Collider collider)
 }
 ```
 
-Is it working? If not, is there anything you have forgotten to do? Look back at the lecture and last week's practical and check everything that is necessary for trigger colliders to work has been implemented. Call your tutor over if you need some help. Once your tower is functional, create a prefab for it. Place a few around your scene.
+Is it working? If not, is there anything you have forgotten to do? Look back at the lecture and last week's practical and check everything that is necessary for trigger colliders to work has been implemented. Call your demonstrator over if you need some help. Once your tower is functional, create a prefab for it. Place a few around your scene.
 
 ### Checkpoint! Save, commit and push your work now.
 
-## Step 3 – Create a Tower spawner
+## Step 4 – Create a Tower spawner (20 min)
 We want to be able to spawn towers wherever the player left-clicks the mouse. There's a few things we need to do to get this working.
 
 ### Add the tower spawner to the ERD
@@ -165,7 +167,7 @@ For SpawnPosition, we want to get the mouse's position on the screen in pixel co
 
 For SpawnTower, we want to set the Action Type to Button and the Binding's path to Path > Mouse > Left Button.
 
-Create a TowerSpawner Monobehaviour and add these Input Actions. Remember to Enable them both. Similar to Week 2, we will be handling the Mouse Position using polling and the Left-Click using events. Go ahead and set-up an event delegate for left-click now. If you can't remember how to do this, check the Week 2 sheet or ask your tutor for a hand.
+Create a TowerSpawner Monobehaviour and add these Input Actions. Remember to Enable them both. Similar to Week 2, we will be handling the Mouse Position using polling and the Left-Click using events. Go ahead and set-up an event delegate for left-click now. If you can't remember how to do this, check the Week 2 sheet or ask your demonstrator for a hand.
 
 ### Using the mouse position
 The mouse position input will return a 2D vector of screen coordinates. What we want to do is convert this into a 3D coordinate on our game's map, which is where we will spawn our Tower Prefab. Firstly, we need to convert our Vector2 into a Vector3 so we can use it in 3D space. Doing this will look something like this (depending on what you named your InputActions):
@@ -180,11 +182,10 @@ Following the example code in lectures, use the [Physics.Raycast](https://docs.u
 
 The ```RaycastHit``` value contains a field point which is the point at which the ray hit the surface. Use this point to instantiate a new tower.
 
-You may wish to add a circle sprite to your tower to indicate the area of effect visually, but this is optional.
+Optional: Add a circle sprite to your tower to indicate the area of effect visually.
 
-### Prac Complete! Save, commit and push your work now.
+## Prac Complete! Show your demonstrator:
 
-## To receive full marks for today, show your tutor:
 * Your Tower prefab, and how you're dealing damage to the creep.
 * Your completed ERD, with all relationships accurately represented.
 * Your method for spawning Creeps and assigning the Path, and justification for your chosen method.
