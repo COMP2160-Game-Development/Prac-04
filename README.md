@@ -13,7 +13,7 @@ https://wordsonplay.itch.io/comp2160-prac-5-tower-defense
 
 The player places towers (blue cylinders) near the path to kill the yellow creeps.
 
-The base framework already implements the path and creep prefab for you. In the Documentation folder there is a powerpoint file which contains an Entity Relationship diagram (ERD) for the code as it stands.
+The base framework already implements the path and creep prefab for you. In the Documentation folder there is a powerpoint file which contains an Entity Relationship diagram (ERD) for the code as it stands. Note: If you've taken COMP1350 Introduction to Database Design and Management, we do ERDs a little differently.
 
 Notice that the creep prefab is made up of two components: CreepMove and CreepHealth. This functionality has been split up, since there is little interaction between the movement code for the creep and the health code (i.e. they are loosely coupled). By splitting it into two components, we make each one simpler to read, and easier to understand. Follow this development philosophy throughout this prac, and in your assignment.
 
